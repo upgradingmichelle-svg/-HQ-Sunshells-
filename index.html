@@ -9,14 +9,7 @@
     <title>☀️ HQ Sunshells 🐚</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            background: linear-gradient(135deg, #4a3a6b, #7a6a9a);
-            min-height: 100vh;
-            font-family: -apple-system, sans-serif;
-            color: white;
-            padding: 20px;
-            padding-bottom: 40px;
-        }
+        body { background: linear-gradient(135deg, #4a3a6b, #7a6a9a); min-height: 100vh; font-family: -apple-system, sans-serif; color: white; padding: 20px; padding-bottom: 40px; }
         .header { text-align: center; padding: 40px 0 10px; }
         .header h1 { font-size: 2em; margin-bottom: 8px; }
         .header p { opacity: 0.8; font-size: 0.9em; }
@@ -64,9 +57,14 @@
         .drop { font-size: 2em; cursor: pointer; opacity: 0.3; transition: opacity 0.2s; }
         .drop.filled { opacity: 1; }
         .water-label { text-align: center; font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
-        .workout-today { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px; }
+        .workout-today { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
         .workout-type { font-size: 1.4em; font-weight: 700; margin-bottom: 4px; }
-        .workout-desc { font-size: 0.85em; opacity: 0.8; }
+        .workout-subtitle { font-size: 0.85em; opacity: 0.8; margin-bottom: 12px; }
+        .workout-sims { background: rgba(255,200,50,0.15); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; font-size: 0.8em; opacity: 0.9; font-style: italic; }
+        .exercise-list { list-style: none; margin: 8px 0; }
+        .exercise-list li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9em; }
+        .exercise-list li:last-child { border-bottom: none; }
+        .exercise-list li::before { content: "▸ "; opacity: 0.7; }
         .workout-done-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px 24px; border-radius: 20px; font-size: 0.9em; margin-top: 10px; width: 100%; }
         .workout-done-btn.completed { background: rgba(100,255,150,0.3); }
         .week-row { display: flex; justify-content: space-between; margin-top: 12px; }
@@ -136,7 +134,9 @@
     <h2>💪 Today's Workout</h2>
     <div class="workout-today">
         <div class="workout-type" id="workoutType">Loading...</div>
-        <div class="workout-desc" id="workoutDesc"></div>
+        <div class="workout-subtitle" id="workoutSubtitle"></div>
+        <div class="workout-sims" id="workoutSims"></div>
+        <ul class="exercise-list" id="exerciseList"></ul>
         <button class="workout-done-btn" id="workoutBtn" onclick="toggleWorkout()">Mark Complete ✓</button>
     </div>
     <div class="week-row" id="weekRow"></div>
@@ -144,9 +144,7 @@
 
 <div class="card">
     <h2>💧 Water Tracker</h2>
-    <div class="water-drops" id="waterDrops">
-        💧💧💧💧💧💧💧💧
-    </div>
+    <div class="water-drops" id="waterDrops"></div>
     <div class="water-label" id="waterLabel">Tap a drop to track!</div>
 </div>
 
@@ -168,16 +166,13 @@
 <script>
 window.onload = function() {
 
-    // GREETING
     const h = new Date().getHours();
     document.getElementById('greeting').textContent = h < 12 ? "Good morning, Michelle! ☀️" : h < 17 ? "Good afternoon, Michelle! 🌤️" : "Good evening, Michelle! 🌙";
     document.getElementById('date').textContent = new Date().toLocaleDateString('en-CA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
 
-    // QUOTE
     const quotes = ["She believed she could, so she did. 🐚","The beach is calling and I must go. ☀️","Build the life you want, one wave at a time. 🌊","Success is doing ordinary things extraordinarily well. 🚀","Your vibe attracts your tribe. 🌺","Dream big, work hard, stay humble. 💫","Every expert was once a beginner. 🌱","Progress over perfection, always. 🎯","The sun will shine on your efforts. ☀️","Small steps every day lead to big results. 🐚"];
     document.getElementById('quote').textContent = quotes[new Date().getDay() % quotes.length];
 
-    // SPANISH
     const words = [
         {word:"Negocio",meaning:"Business",present:"Tengo un negocio en Progreso.",past:"Empecé mi negocio el año pasado.",future:"Mi negocio crecerá mucho."},
         {word:"Cliente",meaning:"Client",present:"Busco un nuevo cliente hoy.",past:"Conseguí un cliente la semana pasada.",future:"Tendré más clientes este mes."},
@@ -190,24 +185,62 @@ window.onload = function() {
     const w = words[new Date().getDay() % words.length];
     document.getElementById('spanishContent').innerHTML = `<div class="spanish-word">${w.word}</div><div class="spanish-meaning">${w.meaning}</div><div class="tense"><div class="tense-label">🕐 Present</div><div class="tense-text">${w.present}</div></div><div class="tense"><div class="tense-label">📖 Past</div><div class="tense-text">${w.past}</div></div><div class="tense"><div class="tense-label">🔮 Future</div><div class="tense-text">${w.future}</div></div>`;
 
-    // WORKOUT
+    // DR. STACY SIMS WORKOUTS
     const workouts = {
-        0:{type:"🧘‍♀️ Yoga",desc:"Rest & restore — gentle flow today"},
-        1:{type:"💪 Strength",desc:"Heavy lifting — Dr. Sims protocol"},
-        2:{type:"🏃‍♀️ Cardio",desc:"HIIT conditioning — short & intense"},
-        3:{type:"💪 Strength",desc:"Heavy lifting — Dr. Sims protocol"},
-        4:{type:"🏃‍♀️ Cardio",desc:"HIIT conditioning — short & intense"},
-        5:{type:"💪 Strength",desc:"Heavy lifting — Dr. Sims protocol"},
-        6:{type:"🧘‍♀️ Yoga",desc:"Rest & restore — yin yoga today"}
+        0: {
+            type: "🧘‍♀️ Yin Yoga + Full Rest",
+            subtitle: "Sunday — restore, reset, recover",
+            sims: "Dr. Sims: Rest is where adaptation happens. Cortisol drops, muscle rebuilds.",
+            exercises: ["10 min gentle sun salutations","Yin hold: Butterfly pose — 3 mins","Yin hold: Dragon pose each side — 3 mins","Yin hold: Sphinx pose — 3 mins","5 min savasana + breathwork"]
+        },
+        1: {
+            type: "💪 Lower Body Strength",
+            subtitle: "Monday — heavy bands + kettlebell",
+            sims: "Dr. Sims: Heavy resistance training is non-negotiable for perimenopausal women. Lift HEAVY.",
+            exercises: ["Banded glute bridges — 4 x 8 heavy","KB sumo deadlift — 4 x 6 heavy","Banded lateral walks — 3 x 12 each","Single leg KB Romanian deadlift — 3 x 8","Banded clamshells — 3 x 15 each","Cool down: hip flexor stretch 2 mins each"]
+        },
+        2: {
+            type: "⚡ Sprint Intervals + Cardio",
+            subtitle: "Tuesday — short, intense, powerful",
+            sims: "Dr. Sims: Skip long slow cardio. Short intense sprints preserve muscle and torch fat.",
+            exercises: ["5 min warm up walk/jog","8 x 20 sec all-out sprints (beach or home)","Rest 40 sec between each sprint","Banded high knees — 3 x 30 sec","Jump squats (or banded squats) — 3 x 10","Cool down walk 5 mins + stretch"]
+        },
+        3: {
+            type: "💪 Upper Body Strength",
+            subtitle: "Wednesday — heavy bands + dumbbells",
+            sims: "Dr. Sims: Upper body strength protects bone density in spine and wrists. Go heavy!",
+            exercises: ["Banded pull aparts — 3 x 15","DB overhead press — 4 x 8 heavy","Banded bent over rows — 4 x 10","DB chest press (floor) — 3 x 8","Banded tricep pushdowns — 3 x 12","KB halo — 3 x 8 each direction"]
+        },
+        4: {
+            type: "⚡ HIIT Circuit",
+            subtitle: "Thursday — full body conditioning",
+            sims: "Dr. Sims: HIIT signals your body to use fat as fuel and keeps metabolism fired up.",
+            exercises: ["Circuit x 4 rounds — 40 sec on, 20 sec rest:","▸ Banded squat to press","▸ KB swing","▸ Banded lateral shuffle","▸ Push ups (full or modified)","▸ Banded glute kickbacks","Rest 90 sec between rounds"]
+        },
+        5: {
+            type: "💪 Full Body Strength",
+            subtitle: "Friday — compound movements, go heavy",
+            sims: "Dr. Sims: Compound lifts trigger the most hormonal response. This is your power day!",
+            exercises: ["KB goblet squat — 4 x 8 heavy","Banded deadlift — 4 x 6 heavy","DB alternating lunge — 3 x 10 each","Banded face pulls — 3 x 15","KB single arm row — 3 x 8 each","Plank hold — 3 x 45 sec"]
+        },
+        6: {
+            type: "🧘‍♀️ Yoga + Mobility",
+            subtitle: "Saturday — flow and restore",
+            sims: "Dr. Sims: Active recovery keeps cortisol balanced and joints healthy. Move gently.",
+            exercises: ["15 min gentle vinyasa flow","Hip circle mobility — 2 mins each side","Thoracic spine rolls — 2 mins","Hamstring band stretch — 2 mins each","Shoulder cross body stretch — 2 mins each","5 min meditation or breathwork"]
+        }
     };
+
     const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const dayIcons = ['🧘‍♀️','💪','🏃‍♀️','💪','🏃‍♀️','💪','🧘‍♀️'];
+    const dayIcons = ['🧘‍♀️','💪','⚡','💪','⚡','💪','🧘‍♀️'];
     const today = new Date().getDay();
 
     function renderWorkout() {
         const wk = workouts[today];
         document.getElementById('workoutType').textContent = wk.type;
-        document.getElementById('workoutDesc').textContent = wk.desc;
+        document.getElementById('workoutSubtitle').textContent = wk.subtitle;
+        document.getElementById('workoutSims').textContent = wk.sims;
+        document.getElementById('exerciseList').innerHTML = wk.exercises.map(e => `<li>${e}</li>`).join('');
         const done = localStorage.getItem('workout_'+today) === 'true';
         const btn = document.getElementById('workoutBtn');
         btn.textContent = done ? '✅ Completed!!' : 'Mark Complete ✓';
@@ -220,12 +253,10 @@ window.onload = function() {
     renderWorkout();
 
     window.toggleWorkout = function() {
-        const current = localStorage.getItem('workout_'+today) === 'true';
-        localStorage.setItem('workout_'+today, !current);
+        localStorage.setItem('workout_'+today, localStorage.getItem('workout_'+today) !== 'true');
         renderWorkout();
     };
 
-    // WATER
     function renderWater() {
         const count = parseInt(localStorage.getItem('water') || '0');
         document.getElementById('waterDrops').innerHTML = Array.from({length:8},(_,i) =>
@@ -234,13 +265,11 @@ window.onload = function() {
         document.getElementById('waterLabel').textContent = count + ' of 8 glasses today';
     }
     window.setWater = function(n) {
-        const current = parseInt(localStorage.getItem('water') || '0');
-        localStorage.setItem('water', current === n ? n-1 : n);
+        localStorage.setItem('water', parseInt(localStorage.getItem('water')||'0') === n ? n-1 : n);
         renderWater();
     };
     renderWater();
 
-    // TASKS
     function saveAll() {
         ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'].forEach(id => {
             const el = document.getElementById(id); if(el) localStorage.setItem(id, el.value);
@@ -266,7 +295,6 @@ window.onload = function() {
     });
     updateStyles();
 
-    // CLIENTS
     let clients = JSON.parse(localStorage.getItem('clients') || '[]');
     function updateRevenue() {
         const total = clients.reduce((s,c) => s+(parseFloat(c.revenue)||0), 0);
@@ -284,11 +312,10 @@ window.onload = function() {
             </div>`).join('');
         updateRevenue();
     }
-    window.updateClient = function(i, field, val) { clients[i][field] = val; localStorage.setItem('clients', JSON.stringify(clients)); updateRevenue(); };
-    window.addClient = function() { clients.push({name:'',revenue:0}); localStorage.setItem('clients', JSON.stringify(clients)); renderClients(); };
+    window.updateClient = function(i,field,val) { clients[i][field]=val; localStorage.setItem('clients',JSON.stringify(clients)); updateRevenue(); };
+    window.addClient = function() { clients.push({name:'',revenue:0}); localStorage.setItem('clients',JSON.stringify(clients)); renderClients(); };
     renderClients();
 
-    // CRA
     for(let i=1;i<=6;i++) {
         const el = document.getElementById('crac'+i);
         if(el) {
@@ -301,7 +328,7 @@ window.onload = function() {
         }
     }
 
-}; // end window.onload
+};
 </script>
 </body>
 </html>
