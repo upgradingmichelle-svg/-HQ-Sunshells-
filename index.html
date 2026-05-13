@@ -90,6 +90,21 @@
         .cra-item input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
         .cra-item label { font-size: 0.9em; }
         .cra-item.done label { text-decoration: line-through; opacity: 0.5; }
+        .water-drops { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+        .drop { font-size: 1.8em; cursor: pointer; opacity: 0.3; transition: opacity 0.2s; }
+        .drop.filled { opacity: 1; }
+        .water-label { text-align: center; font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
+        .workout-today { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 12px; }
+        .workout-type { font-size: 1.4em; font-weight: 700; margin-bottom: 4px; }
+        .workout-desc { font-size: 0.85em; opacity: 0.8; }
+        .workout-done-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px 24px; border-radius: 20px; font-size: 0.9em; margin-top: 10px; width: 100%; }
+        .workout-done-btn.completed { background: rgba(100,255,150,0.3); }
+        .week-row { display: flex; justify-content: space-between; margin-top: 12px; }
+        .day-pill { text-align: center; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 6px 4px; flex: 1; margin: 0 2px; font-size: 0.7em; }
+        .day-pill.today { background: rgba(255,200,50,0.3); }
+        .day-pill.completed { background: rgba(100,255,150,0.25); }
+        .day-name { opacity: 0.7; margin-bottom: 2px; }
+        .day-icon { font-size: 1.1em; }
     </style>
 </head>
 <body>
@@ -138,18 +153,9 @@
         <div class="revenue-label">weekly goal</div>
     </div>
     <div class="stats-row">
-        <div class="stat">
-            <div class="stat-number" id="clientCount">0</div>
-            <div class="stat-label">clients</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number" id="weeklyRevenue">$0</div>
-            <div class="stat-label">this week</div>
-        </div>
-        <div class="stat">
-            <div class="stat-number" id="progressPct">0%</div>
-            <div class="stat-label">of goal</div>
-        </div>
+        <div class="stat"><div class="stat-number" id="clientCount">0</div><div class="stat-label">clients</div></div>
+        <div class="stat"><div class="stat-number" id="weeklyRevenue">$0</div><div class="stat-label">this week</div></div>
+        <div class="stat"><div class="stat-number" id="progressPct">0%</div><div class="stat-label">of goal</div></div>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
     <div id="clientList"></div>
@@ -162,6 +168,24 @@
     <div class="task"><input type="checkbox" id="ec1" onchange="saveAll()"><input type="text" id="et1" placeholder="Wellness task..." onchange="saveAll()"></div>
     <div class="task"><input type="checkbox" id="ec2" onchange="saveAll()"><input type="text" id="et2" placeholder="Wellness task..." onchange="saveAll()"></div>
     <div class="task"><input type="checkbox" id="ec3" onchange="saveAll()"><input type="text" id="et3" placeholder="Wellness task..." onchange="saveAll()"></div>
+</div>
+
+<!-- WORKOUT TRACKER -->
+<div class="card">
+    <h2>💪 Today's Workout</h2>
+    <div class="workout-today">
+        <div class="workout-type" id="workoutType"></div>
+        <div class="workout-desc" id="workoutDesc"></div>
+        <button class="workout-done-btn" id="workoutBtn" onclick="toggleWorkout()">Mark Complete ✓</button>
+    </div>
+    <div class="week-row" id="weekRow"></div>
+</div>
+
+<!-- WATER TRACKER -->
+<div class="card">
+    <h2>💧 Water Tracker</h2>
+    <div class="water-drops" id="waterDrops"></div>
+    <div class="water-label" id="waterLabel"></div>
 </div>
 
 <!-- SPANISH -->
@@ -200,114 +224,4 @@ const quotes = [
     "Your vibe attracts your tribe. 🌺",
     "Dream big, work hard, stay humble. 💫",
     "Every expert was once a beginner. 🌱",
-    "Progress over perfection, always. 🎯",
-    "The sun will shine on your efforts. ☀️",
-    "Small steps every day lead to big results. 🐚",
-];
-function setQuote() {
-    const day = new Date().getDay();
-    document.getElementById('quote').textContent = quotes[day % quotes.length];
-}
-
-// SPANISH
-const spanishWords = [
-    { word: "Negocio", meaning: "Business", present: "Tengo un negocio en Progreso.", past: "Empecé mi negocio el año pasado.", future: "Mi negocio crecerá mucho." },
-    { word: "Cliente", meaning: "Client", present: "Busco un nuevo cliente hoy.", past: "Conseguí un cliente la semana pasada.", future: "Tendré más clientes este mes." },
-    { word: "Éxito", meaning: "Success", present: "El éxito llega con esfuerzo.", past: "Celebré mi éxito ayer.", future: "Alcanzaré el éxito pronto." },
-    { word: "Crecer", meaning: "To grow", present: "Mi empresa crece cada día.", past: "Crecí mucho el año pasado.", future: "Voy a crecer más este año." },
-    { word: "Dinero", meaning: "Money", present: "Gano dinero con mi trabajo.", past: "Ahorré dinero el mes pasado.", future: "Ganaré más dinero pronto." },
-    { word: "Reunión", meaning: "Meeting", present: "Tengo una reunión hoy.", past: "Tuve una reunión ayer.", future: "Tendré una reunión mañana." },
-    { word: "Playa", meaning: "Beach", present: "Vivo cerca de la playa.", past: "Caminé en la playa esta mañana.", future: "Trabajaré desde la playa mañana." },
-];
-function setSpanish() {
-    const day = new Date().getDay();
-    const w = spanishWords[day % spanishWords.length];
-    document.getElementById('spanishContent').innerHTML = `
-        <div class="spanish-word">${w.word}</div>
-        <div class="spanish-meaning">${w.meaning}</div>
-        <div class="tense"><div class="tense-label">🕐 Present</div><div class="tense-text">${w.present}</div></div>
-        <div class="tense"><div class="tense-label">📖 Past</div><div class="tense-text">${w.past}</div></div>
-        <div class="tense"><div class="tense-label">🔮 Future</div><div class="tense-text">${w.future}</div></div>
-    `;
-}
-
-// SAVE/LOAD
-function saveAll() {
-    const ids = ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'];
-    const checks = ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'];
-    ids.forEach(id => { const el = document.getElementById(id); if(el) localStorage.setItem(id, el.value); });
-    checks.forEach(id => { const el = document.getElementById(id); if(el) localStorage.setItem(id, el.checked); });
-    updateTaskStyles();
-}
-function loadAll() {
-    const ids = ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'];
-    const checks = ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'];
-    ids.forEach(id => { const el = document.getElementById(id); if(el && localStorage.getItem(id)) el.value = localStorage.getItem(id); });
-    checks.forEach(id => { const el = document.getElementById(id); if(el) el.checked = localStorage.getItem(id) === 'true'; });
-    updateTaskStyles();
-}
-function updateTaskStyles() {
-    [['fc1','ft1'],['fc2','ft2'],['fc3','ft3'],['gc1','gt1'],['gc2','gt2'],['gc3','gt3'],['gc4','gt4'],['gc5','gt5'],['ec1','et1'],['ec2','et2'],['ec3','et3']].forEach(([c,t]) => {
-        const cb = document.getElementById(c); const tx = document.getElementById(t);
-        if(cb && tx) tx.classList.toggle('done', cb.checked);
-    });
-}
-
-// CLIENTS
-let clients = JSON.parse(localStorage.getItem('clients') || '[]');
-function addClient() {
-    clients.push({ name: '', revenue: 0 });
-    saveClients();
-    renderClients();
-}
-function saveClients() { localStorage.setItem('clients', JSON.stringify(clients)); updateRevenue(); }
-function updateRevenue() {
-    const total = clients.reduce((s,c) => s + (parseFloat(c.revenue)||0), 0);
-    const pct = Math.min(100, Math.round((total/22000)*100));
-    document.getElementById('clientCount').textContent = clients.length;
-    document.getElementById('weeklyRevenue').textContent = '$' + total.toLocaleString();
-    document.getElementById('progressPct').textContent = pct + '%';
-    document.getElementById('progressFill').style.width = pct + '%';
-}
-function renderClients() {
-    const list = document.getElementById('clientList');
-    list.innerHTML = clients.map((c,i) => `
-        <div class="client-row">
-            <input class="client-input" placeholder="Client name..." value="${c.name}" onchange="clients[${i}].name=this.value;saveClients()">
-            <input class="revenue-input" type="number" placeholder="$/wk" value="${c.revenue||''}" onchange="clients[${i}].revenue=this.value;saveClients()">
-        </div>
-    `).join('');
-    updateRevenue();
-}
-
-// CRA
-function saveCRA() {
-    for(let i=1;i<=6;i++) {
-        const el = document.getElementById('crac'+i);
-        if(el) { localStorage.setItem('crac'+i, el.checked); document.getElementById('cra'+i).classList.toggle('done', el.checked); }
-    }
-}
-function loadCRA() {
-    for(let i=1;i<=6;i++) {
-        const el = document.getElementById('crac'+i);
-        if(el) { el.checked = localStorage.getItem('crac'+i) === 'true'; document.getElementById('cra'+i).classList.toggle('done', el.checked); }
-    }
-}
-
-// ADD INPUT LISTENERS
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
-        el.addEventListener('input', saveAll);
-    });
-});
-
-// INIT
-setGreeting();
-setQuote();
-setSpanish();
-loadAll();
-loadCRA();
-renderClients();
-</script>
-</body>
-</html>
+    "Progress over​​​​​​​​​​​​​​​​
