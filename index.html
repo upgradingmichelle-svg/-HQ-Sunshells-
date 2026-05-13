@@ -10,24 +10,18 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: linear-gradient(135deg, #4a3a6b, #7a6a9a);inear-gradient(135deg, #0a4a4a, #1a7a6a);
+            background: linear-gradient(135deg, #4a3a6b, #7a6a9a);
             min-height: 100vh;
             font-family: -apple-system, sans-serif;
             color: white;
             padding: 20px;
+            padding-bottom: 40px;
         }
-        .header {
-            text-align: center;
-            padding: 40px 0 20px;
-        }
+        .header { text-align: center; padding: 40px 0 10px; }
         .header h1 { font-size: 2em; margin-bottom: 8px; }
         .header p { opacity: 0.8; font-size: 0.9em; }
-        .date {
-            text-align: center;
-            font-size: 0.85em;
-            opacity: 0.7;
-            margin-bottom: 30px;
-        }
+        .greeting { text-align: center; font-size: 1.1em; font-weight: 600; margin: 8px 0; }
+        .date { text-align: center; font-size: 0.85em; opacity: 0.7; margin-bottom: 20px; }
         .card {
             background: rgba(255,255,255,0.1);
             border-radius: 16px;
@@ -44,13 +38,20 @@
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         .task:last-child { border-bottom: none; }
-        .task input[type="checkbox"] { width: 18px; height: 18px; }
-        .task label { font-size: 0.95em; }
-        .where-was-i {
-            background: rgba(255,200,50,0.2);
-            border: 1px solid rgba(255,200,50,0.4);
+        .task input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
+        .task input[type="text"] {
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.95em;
+            flex: 1;
+            outline: none;
+            font-family: -apple-system, sans-serif;
         }
-        .where-was-i textarea {
+        .task input[type="text"]::placeholder { opacity: 0.5; }
+        .task input[type="text"].done { text-decoration: line-through; opacity: 0.5; }
+        .where-was-i { background: rgba(255,200,50,0.15); border: 1px solid rgba(255,200,50,0.3); }
+        textarea {
             width: 100%;
             background: transparent;
             border: none;
@@ -58,48 +59,255 @@
             font-size: 0.9em;
             resize: none;
             outline: none;
-            min-height: 60px;
+            min-height: 70px;
+            font-family: -apple-system, sans-serif;
         }
-        .where-was-i textarea::placeholder { opacity: 0.6; }
+        textarea::placeholder { opacity: 0.5; }
+        .quote-card { background: rgba(255,255,255,0.08); text-align: center; font-style: italic; }
+        .quote-card p { font-size: 0.9em; line-height: 1.5; opacity: 0.9; }
+        .spanish-word { font-size: 1.8em; font-weight: 700; text-align: center; margin-bottom: 4px; }
+        .spanish-meaning { text-align: center; opacity: 0.8; margin-bottom: 12px; font-size: 0.9em; }
+        .tense { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
+        .tense-label { font-size: 0.75em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+        .tense-text { font-size: 0.9em; }
+        .revenue-goal { text-align: center; margin-bottom: 16px; }
+        .revenue-amount { font-size: 2em; font-weight: 700; color: #ffd700; }
+        .revenue-label { font-size: 0.8em; opacity: 0.7; }
+        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 10px; height: 12px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #ffd700, #ffaa00); height: 100%; border-radius: 10px; transition: width 0.5s; }
+        .client-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .client-row:last-child { border-bottom: none; }
+        .client-input { background: transparent; border: none; color: white; font-size: 0.9em; flex: 1; outline: none; font-family: -apple-system, sans-serif; }
+        .client-input::placeholder { opacity: 0.5; }
+        .revenue-input { background: transparent; border: none; color: #ffd700; font-size: 0.9em; width: 80px; text-align: right; outline: none; font-family: -apple-system, sans-serif; }
+        .add-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; width: 100%; }
+        .stats-row { display: flex; justify-content: space-around; margin: 12px 0; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 1.8em; font-weight: 700; color: #ffd700; }
+        .stat-label { font-size: 0.75em; opacity: 0.7; }
+        .cra-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .cra-item:last-child { border-bottom: none; }
+        .cra-item input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
+        .cra-item label { font-size: 0.9em; }
+        .cra-item.done label { text-decoration: line-through; opacity: 0.5; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>☀️ HQ Sunshells 🐚</h1>
-        <p>Where the sun meets the shore and business gets done 🌊</p>
-    </div>
-    <div class="date" id="date"></div>
 
-    <div class="card where-was-i">
-        <h2>📍 Where Was I?</h2>
-        <textarea placeholder="What were you working on? Pick up right here..."></textarea>
-    </div>
+<div class="header">
+    <h1>☀️ HQ Sunshells 🐚</h1>
+    <p>Where the sun meets the shore and business gets done 🌊</p>
+</div>
+<div class="greeting" id="greeting"></div>
+<div class="date" id="date"></div>
 
-    <div class="card">
-        <h2>🎯 Top 3 Focus Tasks Today</h2>
-        <div class="task"><input type="checkbox" id="t1"><label for="t1">Task one</label></div>
-        <div class="task"><input type="checkbox" id="t2"><label for="t2">Task two</label></div>
-        <div class="task"><input type="checkbox" id="t3"><label for="t3">Task three</label></div>
-    </div>
+<!-- QUOTE -->
+<div class="card quote-card">
+    <p id="quote"></p>
+</div>
 
-    <div class="card">
-        <h2>🚀 Grow Pro</h2>
-        <div class="task"><input type="checkbox" id="g1"><label for="g1">Follow up with leads</label></div>
-        <div class="task"><input type="checkbox" id="g2"><label for="g2">Publish SEO blog post</label></div>
-        <div class="task"><input type="checkbox" id="g3"><label for="g3">WhatsApp outreach</label></div>
-    </div>
+<!-- WHERE WAS I -->
+<div class="card where-was-i">
+    <h2>📍 Where Was I?</h2>
+    <textarea id="whereWasI" placeholder="What were you working on? Pick up right here..."></textarea>
+</div>
 
-    <div class="card">
-        <h2>🌿 EternaFlow</h2>
-        <div class="task"><input type="checkbox" id="e1"><label for="e1">Morning workout</label></div>
-        <div class="task"><input type="checkbox" id="e2"><label for="e2">Spanish practice</label></div>
-        <div class="task"><input type="checkbox" id="e3"><label for="e3">Evening wind down</label></div>
-    </div>
+<!-- TOP 3 FOCUS -->
+<div class="card">
+    <h2>🎯 Top 3 Focus Tasks Today</h2>
+    <div class="task"><input type="checkbox" id="fc1" onchange="saveAll()"><input type="text" id="ft1" placeholder="Focus task 1..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="fc2" onchange="saveAll()"><input type="text" id="ft2" placeholder="Focus task 2..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="fc3" onchange="saveAll()"><input type="text" id="ft3" placeholder="Focus task 3..." onchange="saveAll()"></div>
+</div>
 
-    <script>
-        const d = new Date();
-        document.getElementById('date').textContent = d.toLocaleDateString('en-CA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
-    </script>
+<!-- GROW PRO -->
+<div class="card">
+    <h2>🚀 Grow Pro Actions</h2>
+    <div class="task"><input type="checkbox" id="gc1" onchange="saveAll()"><input type="text" id="gt1" placeholder="Action to take..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="gc2" onchange="saveAll()"><input type="text" id="gt2" placeholder="Action to take..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="gc3" onchange="saveAll()"><input type="text" id="gt3" placeholder="Action to take..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="gc4" onchange="saveAll()"><input type="text" id="gt4" placeholder="Action to take..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="gc5" onchange="saveAll()"><input type="text" id="gt5" placeholder="Action to take..." onchange="saveAll()"></div>
+</div>
+
+<!-- REVENUE TRACKER -->
+<div class="card">
+    <h2>💰 Revenue Tracker</h2>
+    <div class="revenue-goal">
+        <div class="revenue-amount">$22,000</div>
+        <div class="revenue-label">weekly goal</div>
+    </div>
+    <div class="stats-row">
+        <div class="stat">
+            <div class="stat-number" id="clientCount">0</div>
+            <div class="stat-label">clients</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number" id="weeklyRevenue">$0</div>
+            <div class="stat-label">this week</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number" id="progressPct">0%</div>
+            <div class="stat-label">of goal</div>
+        </div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="clientList"></div>
+    <button class="add-btn" onclick="addClient()">+ Add Client</button>
+</div>
+
+<!-- ETERNAFLOW -->
+<div class="card">
+    <h2>🌿 EternaFlow</h2>
+    <div class="task"><input type="checkbox" id="ec1" onchange="saveAll()"><input type="text" id="et1" placeholder="Wellness task..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="ec2" onchange="saveAll()"><input type="text" id="et2" placeholder="Wellness task..." onchange="saveAll()"></div>
+    <div class="task"><input type="checkbox" id="ec3" onchange="saveAll()"><input type="text" id="et3" placeholder="Wellness task..." onchange="saveAll()"></div>
+</div>
+
+<!-- SPANISH -->
+<div class="card">
+    <h2>🇲🇽 Spanish Word of the Day</h2>
+    <div id="spanishContent"></div>
+</div>
+
+<!-- CRA TAX -->
+<div class="card">
+    <h2>🍁 CRA Tax Catch-Up</h2>
+    <div class="cra-item" id="cra1"><input type="checkbox" id="crac1" onchange="saveCRA()"><label for="crac1">Gather T4s and income slips</label></div>
+    <div class="cra-item" id="cra2"><input type="checkbox" id="crac2" onchange="saveCRA()"><label for="crac2">Collect all receipts and expenses</label></div>
+    <div class="cra-item" id="cra3"><input type="checkbox" id="crac3" onchange="saveCRA()"><label for="crac3">Book accountant appointment</label></div>
+    <div class="cra-item" id="cra4"><input type="checkbox" id="crac4" onchange="saveCRA()"><label for="crac4">File outstanding returns</label></div>
+    <div class="cra-item" id="cra5"><input type="checkbox" id="crac5" onchange="saveCRA()"><label for="crac5">Set up payment plan if needed</label></div>
+    <div class="cra-item" id="cra6"><input type="checkbox" id="crac6" onchange="saveCRA()"><label for="crac6">Confirm all years are filed</label></div>
+</div>
+
+<script>
+// GREETING
+function setGreeting() {
+    const h = new Date().getHours();
+    let g = h < 12 ? "Good morning, Michelle! ☀️" : h < 17 ? "Good afternoon, Michelle! 🌤️" : "Good evening, Michelle! 🌙";
+    document.getElementById('greeting').textContent = g;
+    const d = new Date();
+    document.getElementById('date').textContent = d.toLocaleDateString('en-CA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+}
+
+// QUOTES
+const quotes = [
+    "She believed she could, so she did. 🐚",
+    "The beach is calling and I must go. ☀️",
+    "Build the life you want, one wave at a time. 🌊",
+    "Success is doing ordinary things extraordinarily well. 🚀",
+    "Your vibe attracts your tribe. 🌺",
+    "Dream big, work hard, stay humble. 💫",
+    "Every expert was once a beginner. 🌱",
+    "Progress over perfection, always. 🎯",
+    "The sun will shine on your efforts. ☀️",
+    "Small steps every day lead to big results. 🐚",
+];
+function setQuote() {
+    const day = new Date().getDay();
+    document.getElementById('quote').textContent = quotes[day % quotes.length];
+}
+
+// SPANISH
+const spanishWords = [
+    { word: "Negocio", meaning: "Business", present: "Tengo un negocio en Progreso.", past: "Empecé mi negocio el año pasado.", future: "Mi negocio crecerá mucho." },
+    { word: "Cliente", meaning: "Client", present: "Busco un nuevo cliente hoy.", past: "Conseguí un cliente la semana pasada.", future: "Tendré más clientes este mes." },
+    { word: "Éxito", meaning: "Success", present: "El éxito llega con esfuerzo.", past: "Celebré mi éxito ayer.", future: "Alcanzaré el éxito pronto." },
+    { word: "Crecer", meaning: "To grow", present: "Mi empresa crece cada día.", past: "Crecí mucho el año pasado.", future: "Voy a crecer más este año." },
+    { word: "Dinero", meaning: "Money", present: "Gano dinero con mi trabajo.", past: "Ahorré dinero el mes pasado.", future: "Ganaré más dinero pronto." },
+    { word: "Reunión", meaning: "Meeting", present: "Tengo una reunión hoy.", past: "Tuve una reunión ayer.", future: "Tendré una reunión mañana." },
+    { word: "Playa", meaning: "Beach", present: "Vivo cerca de la playa.", past: "Caminé en la playa esta mañana.", future: "Trabajaré desde la playa mañana." },
+];
+function setSpanish() {
+    const day = new Date().getDay();
+    const w = spanishWords[day % spanishWords.length];
+    document.getElementById('spanishContent').innerHTML = `
+        <div class="spanish-word">${w.word}</div>
+        <div class="spanish-meaning">${w.meaning}</div>
+        <div class="tense"><div class="tense-label">🕐 Present</div><div class="tense-text">${w.present}</div></div>
+        <div class="tense"><div class="tense-label">📖 Past</div><div class="tense-text">${w.past}</div></div>
+        <div class="tense"><div class="tense-label">🔮 Future</div><div class="tense-text">${w.future}</div></div>
+    `;
+}
+
+// SAVE/LOAD
+function saveAll() {
+    const ids = ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'];
+    const checks = ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'];
+    ids.forEach(id => { const el = document.getElementById(id); if(el) localStorage.setItem(id, el.value); });
+    checks.forEach(id => { const el = document.getElementById(id); if(el) localStorage.setItem(id, el.checked); });
+    updateTaskStyles();
+}
+function loadAll() {
+    const ids = ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'];
+    const checks = ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'];
+    ids.forEach(id => { const el = document.getElementById(id); if(el && localStorage.getItem(id)) el.value = localStorage.getItem(id); });
+    checks.forEach(id => { const el = document.getElementById(id); if(el) el.checked = localStorage.getItem(id) === 'true'; });
+    updateTaskStyles();
+}
+function updateTaskStyles() {
+    [['fc1','ft1'],['fc2','ft2'],['fc3','ft3'],['gc1','gt1'],['gc2','gt2'],['gc3','gt3'],['gc4','gt4'],['gc5','gt5'],['ec1','et1'],['ec2','et2'],['ec3','et3']].forEach(([c,t]) => {
+        const cb = document.getElementById(c); const tx = document.getElementById(t);
+        if(cb && tx) tx.classList.toggle('done', cb.checked);
+    });
+}
+
+// CLIENTS
+let clients = JSON.parse(localStorage.getItem('clients') || '[]');
+function addClient() {
+    clients.push({ name: '', revenue: 0 });
+    saveClients();
+    renderClients();
+}
+function saveClients() { localStorage.setItem('clients', JSON.stringify(clients)); updateRevenue(); }
+function updateRevenue() {
+    const total = clients.reduce((s,c) => s + (parseFloat(c.revenue)||0), 0);
+    const pct = Math.min(100, Math.round((total/22000)*100));
+    document.getElementById('clientCount').textContent = clients.length;
+    document.getElementById('weeklyRevenue').textContent = '$' + total.toLocaleString();
+    document.getElementById('progressPct').textContent = pct + '%';
+    document.getElementById('progressFill').style.width = pct + '%';
+}
+function renderClients() {
+    const list = document.getElementById('clientList');
+    list.innerHTML = clients.map((c,i) => `
+        <div class="client-row">
+            <input class="client-input" placeholder="Client name..." value="${c.name}" onchange="clients[${i}].name=this.value;saveClients()">
+            <input class="revenue-input" type="number" placeholder="$/wk" value="${c.revenue||''}" onchange="clients[${i}].revenue=this.value;saveClients()">
+        </div>
+    `).join('');
+    updateRevenue();
+}
+
+// CRA
+function saveCRA() {
+    for(let i=1;i<=6;i++) {
+        const el = document.getElementById('crac'+i);
+        if(el) { localStorage.setItem('crac'+i, el.checked); document.getElementById('cra'+i).classList.toggle('done', el.checked); }
+    }
+}
+function loadCRA() {
+    for(let i=1;i<=6;i++) {
+        const el = document.getElementById('crac'+i);
+        if(el) { el.checked = localStorage.getItem('crac'+i) === 'true'; document.getElementById('cra'+i).classList.toggle('done', el.checked); }
+    }
+}
+
+// ADD INPUT LISTENERS
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('input[type="text"], textarea').forEach(el => {
+        el.addEventListener('input', saveAll);
+    });
+});
+
+// INIT
+setGreeting();
+setQuote();
+setSpanish();
+loadAll();
+loadCRA();
+renderClients();
+</script>
 </body>
 </html>
-
