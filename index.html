@@ -7,9 +7,99 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#0a4a4a">
     <title>☀️ HQ Sunshells 🐚</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: linear-gradient(135deg, #0a4a4a, #1a7a6a);
+            min-height: 100vh;
+            font-family: -apple-system, sans-serif;
+            color: white;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            padding: 40px 0 20px;
+        }
+        .header h1 { font-size: 2em; margin-bottom: 8px; }
+        .header p { opacity: 0.8; font-size: 0.9em; }
+        .date {
+            text-align: center;
+            font-size: 0.85em;
+            opacity: 0.7;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+        .card h2 { font-size: 1em; margin-bottom: 12px; opacity: 0.9; }
+        .task {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .task:last-child { border-bottom: none; }
+        .task input[type="checkbox"] { width: 18px; height: 18px; }
+        .task label { font-size: 0.95em; }
+        .where-was-i {
+            background: rgba(255,200,50,0.2);
+            border: 1px solid rgba(255,200,50,0.4);
+        }
+        .where-was-i textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: white;
+            font-size: 0.9em;
+            resize: none;
+            outline: none;
+            min-height: 60px;
+        }
+        .where-was-i textarea::placeholder { opacity: 0.6; }
+    </style>
 </head>
 <body>
-    <h1>☀️ HQ Sunshells 🐚</h1>
-    <p>Where the sun meets the shore and business gets done 🌊</p>
+    <div class="header">
+        <h1>☀️ HQ Sunshells 🐚</h1>
+        <p>Where the sun meets the shore and business gets done 🌊</p>
+    </div>
+    <div class="date" id="date"></div>
+
+    <div class="card where-was-i">
+        <h2>📍 Where Was I?</h2>
+        <textarea placeholder="What were you working on? Pick up right here..."></textarea>
+    </div>
+
+    <div class="card">
+        <h2>🎯 Top 3 Focus Tasks Today</h2>
+        <div class="task"><input type="checkbox" id="t1"><label for="t1">Task one</label></div>
+        <div class="task"><input type="checkbox" id="t2"><label for="t2">Task two</label></div>
+        <div class="task"><input type="checkbox" id="t3"><label for="t3">Task three</label></div>
+    </div>
+
+    <div class="card">
+        <h2>🚀 Grow Pro</h2>
+        <div class="task"><input type="checkbox" id="g1"><label for="g1">Follow up with leads</label></div>
+        <div class="task"><input type="checkbox" id="g2"><label for="g2">Publish SEO blog post</label></div>
+        <div class="task"><input type="checkbox" id="g3"><label for="g3">WhatsApp outreach</label></div>
+    </div>
+
+    <div class="card">
+        <h2>🌿 EternaFlow</h2>
+        <div class="task"><input type="checkbox" id="e1"><label for="e1">Morning workout</label></div>
+        <div class="task"><input type="checkbox" id="e2"><label for="e2">Spanish practice</label></div>
+        <div class="task"><input type="checkbox" id="e3"><label for="e3">Evening wind down</label></div>
+    </div>
+
+    <script>
+        const d = new Date();
+        document.getElementById('date').textContent = d.toLocaleDateString('en-CA', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+    </script>
 </body>
 </html>
+
