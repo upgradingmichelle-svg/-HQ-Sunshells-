@@ -16,63 +16,80 @@
         .greeting { text-align: center; font-size: 1.1em; font-weight: 600; margin: 8px 0; }
         .date { text-align: center; font-size: 0.85em; opacity: 0.7; margin-bottom: 20px; }
         .card { background: rgba(255,255,255,0.1); border-radius: 16px; padding: 20px; margin-bottom: 16px; backdrop-filter: blur(10px); }
-        .card h2 { font-size: 1em; margin-bottom: 12px; opacity: 0.9; }
-        .task { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .task:last-child { border-bottom: none; }
-        .task input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
-        .task input[type="text"] { background: transparent; border: none; color: white; font-size: 0.95em; flex: 1; outline: none; font-family: -apple-system, sans-serif; }
-        .task input[type="text"]::placeholder { opacity: 0.5; }
-        .task input[type="text"].done { text-decoration: line-through; opacity: 0.5; }
-        .where-was-i { background: rgba(255,200,50,0.15); border: 1px solid rgba(255,200,50,0.3); }
-        textarea { width: 100%; background: transparent; border: none; color: white; font-size: 0.9em; resize: none; outline: none; min-height: 70px; font-family: -apple-system, sans-serif; }
+        .card h2 { font-size: 1.1em; margin-bottom: 12px; font-weight: 700; }
+        .card h3 { font-size: 0.85em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+        .check-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .check-item:last-child { border-bottom: none; }
+        .check-item input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+        .check-item label { font-size: 0.95em; line-height: 1.4; }
+        .check-item.done label { text-decoration: line-through; opacity: 0.5; }
+        .check-item input[type="text"] { background: transparent; border: none; color: white; font-size: 0.95em; flex: 1; outline: none; font-family: -apple-system, sans-serif; }
+        .check-item input[type="text"]::placeholder { opacity: 0.5; }
+        textarea { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; color: white; font-size: 0.9em; resize: none; outline: none; min-height: 100px; font-family: -apple-system, sans-serif; padding: 12px; margin-top: 8px; }
         textarea::placeholder { opacity: 0.5; }
         .quote-card { background: rgba(255,255,255,0.08); text-align: center; font-style: italic; }
-        .quote-card p { font-size: 0.9em; line-height: 1.5; opacity: 0.9; }
+        .quote-card p { font-size: 0.95em; line-height: 1.6; opacity: 0.9; }
+
+        /* BREATHWORK */
+        .breath-container { text-align: center; padding: 10px 0; }
+        .breath-circle { width: 120px; height: 120px; border-radius: 50%; background: rgba(255,255,255,0.15); border: 3px solid rgba(255,255,255,0.4); margin: 0 auto 16px; display: flex; align-items: center; justify-content: center; flex-direction: column; transition: transform 0.5s ease; }
+        .breath-circle.expand { transform: scale(1.3); background: rgba(255,255,255,0.25); }
+        .breath-circle.hold { transform: scale(1.3); background: rgba(255,200,50,0.3); }
+        .breath-circle.shrink { transform: scale(1.0); background: rgba(255,255,255,0.1); }
+        .breath-text { font-size: 1em; font-weight: 700; }
+        .breath-count { font-size: 2em; font-weight: 700; }
+        .breath-phase { font-size: 0.85em; opacity: 0.8; margin-bottom: 8px; }
+        .breath-progress { font-size: 0.75em; opacity: 0.6; margin-bottom: 12px; }
+        .breath-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px 28px; border-radius: 20px; font-size: 0.9em; margin: 4px; }
+        .breath-btn.active { background: rgba(100,255,150,0.3); }
+
+        /* WORKOUT */
+        .workout-today { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+        .workout-type { font-size: 1.3em; font-weight: 700; margin-bottom: 4px; }
+        .workout-subtitle { font-size: 0.85em; opacity: 0.8; margin-bottom: 10px; }
+        .workout-sims { background: rgba(255,200,50,0.15); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; font-size: 0.8em; font-style: italic; }
+        .exercise-list { list-style: none; }
+        .exercise-list li { padding: 5px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.88em; }
+        .exercise-list li:last-child { border-bottom: none; }
+        .exercise-list li::before { content: "▸ "; opacity: 0.6; }
+        .workout-done-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px; border-radius: 20px; font-size: 0.9em; margin-top: 10px; width: 100%; }
+        .workout-done-btn.completed { background: rgba(100,255,150,0.3); }
+        .week-row { display: flex; justify-content: space-between; margin-top: 12px; }
+        .day-pill { text-align: center; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 6px 2px; flex: 1; margin: 0 2px; font-size: 0.68em; }
+        .day-pill.today { background: rgba(255,200,50,0.3); }
+        .day-pill.completed { background: rgba(100,255,150,0.25); }
+        .day-name { opacity: 0.7; margin-bottom: 2px; }
+
+        /* WATER */
+        .water-drops { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; justify-content: center; }
+        .drop { font-size: 2em; cursor: pointer; opacity: 0.3; transition: opacity 0.2s; }
+        .drop.filled { opacity: 1; }
+        .water-label { text-align: center; font-size: 0.85em; opacity: 0.7; }
+
+        /* REVENUE */
+        .revenue-amount { font-size: 2em; font-weight: 700; color: #ffd700; text-align: center; }
+        .revenue-label { font-size: 0.8em; opacity: 0.7; text-align: center; margin-bottom: 12px; }
+        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 10px; height: 12px; margin: 10px 0; overflow: hidden; }
+        .progress-fill { background: linear-gradient(90deg, #ffd700, #ffaa00); height: 100%; border-radius: 10px; transition: width 0.5s; }
+        .stats-row { display: flex; justify-content: space-around; margin: 12px 0; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 1.8em; font-weight: 700; color: #ffd700; }
+        .stat-label { font-size: 0.75em; opacity: 0.7; }
+        .client-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .client-input { background: transparent; border: none; color: white; font-size: 0.9em; flex: 1; outline: none; font-family: -apple-system, sans-serif; }
+        .client-input::placeholder { opacity: 0.5; }
+        .revenue-input { background: transparent; border: none; color: #ffd700; font-size: 0.9em; width: 80px; text-align: right; outline: none; font-family: -apple-system, sans-serif; }
+        .add-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; width: 100%; }
+
+        /* SPANISH */
         .spanish-word { font-size: 1.8em; font-weight: 700; text-align: center; margin-bottom: 4px; }
         .spanish-meaning { text-align: center; opacity: 0.8; margin-bottom: 12px; font-size: 0.9em; }
         .tense { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; }
         .tense-label { font-size: 0.75em; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
         .tense-text { font-size: 0.9em; }
-        .revenue-goal { text-align: center; margin-bottom: 16px; }
-        .revenue-amount { font-size: 2em; font-weight: 700; color: #ffd700; }
-        .revenue-label { font-size: 0.8em; opacity: 0.7; }
-        .progress-bar { background: rgba(255,255,255,0.2); border-radius: 10px; height: 12px; margin: 10px 0; overflow: hidden; }
-        .progress-fill { background: linear-gradient(90deg, #ffd700, #ffaa00); height: 100%; border-radius: 10px; transition: width 0.5s; }
-        .client-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .client-row:last-child { border-bottom: none; }
-        .client-input { background: transparent; border: none; color: white; font-size: 0.9em; flex: 1; outline: none; font-family: -apple-system, sans-serif; }
-        .client-input::placeholder { opacity: 0.5; }
-        .revenue-input { background: transparent; border: none; color: #ffd700; font-size: 0.9em; width: 80px; text-align: right; outline: none; font-family: -apple-system, sans-serif; }
-        .add-btn { background: rgba(255,255,255,0.15); border: none; color: white; padding: 8px 16px; border-radius: 20px; font-size: 0.85em; margin-top: 10px; width: 100%; }
-        .stats-row { display: flex; justify-content: space-around; margin: 12px 0; }
-        .stat { text-align: center; }
-        .stat-number { font-size: 1.8em; font-weight: 700; color: #ffd700; }
-        .stat-label { font-size: 0.75em; opacity: 0.7; }
-        .cra-item { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .cra-item:last-child { border-bottom: none; }
-        .cra-item input[type="checkbox"] { width: 20px; height: 20px; flex-shrink: 0; }
-        .cra-item label { font-size: 0.9em; }
-        .cra-item.done label { text-decoration: line-through; opacity: 0.5; }
-        .water-drops { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; justify-content: center; }
-        .drop { font-size: 2em; cursor: pointer; opacity: 0.3; transition: opacity 0.2s; }
-        .drop.filled { opacity: 1; }
-        .water-label { text-align: center; font-size: 0.85em; opacity: 0.7; margin-top: 4px; }
-        .workout-today { background: rgba(255,255,255,0.15); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
-        .workout-type { font-size: 1.4em; font-weight: 700; margin-bottom: 4px; }
-        .workout-subtitle { font-size: 0.85em; opacity: 0.8; margin-bottom: 12px; }
-        .workout-sims { background: rgba(255,200,50,0.15); border-radius: 8px; padding: 8px 12px; margin-bottom: 10px; font-size: 0.8em; opacity: 0.9; font-style: italic; }
-        .exercise-list { list-style: none; margin: 8px 0; }
-        .exercise-list li { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 0.9em; }
-        .exercise-list li:last-child { border-bottom: none; }
-        .exercise-list li::before { content: "▸ "; opacity: 0.7; }
-        .workout-done-btn { background: rgba(255,255,255,0.2); border: none; color: white; padding: 10px 24px; border-radius: 20px; font-size: 0.9em; margin-top: 10px; width: 100%; }
-        .workout-done-btn.completed { background: rgba(100,255,150,0.3); }
-        .week-row { display: flex; justify-content: space-between; margin-top: 12px; }
-        .day-pill { text-align: center; background: rgba(255,255,255,0.1); border-radius: 10px; padding: 6px 4px; flex: 1; margin: 0 2px; font-size: 0.7em; }
-        .day-pill.today { background: rgba(255,200,50,0.3); }
-        .day-pill.completed { background: rgba(100,255,150,0.25); }
-        .day-name { opacity: 0.7; margin-bottom: 2px; }
-        .day-icon { font-size: 1.1em; }
+
+        /* SECTION DIVIDER */
+        .section-label { text-align: center; font-size: 0.75em; opacity: 0.5; text-transform: uppercase; letter-spacing: 2px; margin: 20px 0 8px; }
     </style>
 </head>
 <body>
@@ -83,53 +100,43 @@
 </div>
 <div class="greeting" id="greeting"></div>
 <div class="date" id="date"></div>
-
 <div class="card quote-card"><p id="quote"></p></div>
 
-<div class="card where-was-i">
-    <h2>📍 Where Was I?</h2>
-    <textarea id="whereWasI" placeholder="What were you working on? Pick up right here..."></textarea>
-</div>
-
+<!-- RISE -->
+<div class="section-label">🌅 Rise</div>
 <div class="card">
-    <h2>🎯 Top 3 Focus Tasks Today</h2>
-    <div class="task"><input type="checkbox" id="fc1"><input type="text" id="ft1" placeholder="Focus task 1..."></div>
-    <div class="task"><input type="checkbox" id="fc2"><input type="text" id="ft2" placeholder="Focus task 2..."></div>
-    <div class="task"><input type="checkbox" id="fc3"><input type="text" id="ft3" placeholder="Focus task 3..."></div>
-</div>
-
-<div class="card">
-    <h2>🚀 Grow Pro Actions</h2>
-    <div class="task"><input type="checkbox" id="gc1"><input type="text" id="gt1" placeholder="Action to take..."></div>
-    <div class="task"><input type="checkbox" id="gc2"><input type="text" id="gt2" placeholder="Action to take..."></div>
-    <div class="task"><input type="checkbox" id="gc3"><input type="text" id="gt3" placeholder="Action to take..."></div>
-    <div class="task"><input type="checkbox" id="gc4"><input type="text" id="gt4" placeholder="Action to take..."></div>
-    <div class="task"><input type="checkbox" id="gc5"><input type="text" id="gt5" placeholder="Action to take..."></div>
-</div>
-
-<div class="card">
-    <h2>💰 Revenue Tracker</h2>
-    <div class="revenue-goal">
-        <div class="revenue-amount">$22,000</div>
-        <div class="revenue-label">weekly goal</div>
+    <h2>🧘‍♀️ Morning Breathwork — 8 mins</h2>
+    <div class="breath-container">
+        <div class="breath-phase" id="mBreathPhase">Ready to begin</div>
+        <div class="breath-circle" id="mBreathCircle">
+            <div class="breath-count" id="mBreathCount">▶</div>
+            <div class="breath-text" id="mBreathText"></div>
+        </div>
+        <div class="breath-progress" id="mBreathProgress">Lung capacity + CO2 tolerance building</div>
+        <button class="breath-btn" id="mBreathBtn" onclick="startMorningBreath()">Start Morning Breath</button>
     </div>
-    <div class="stats-row">
-        <div class="stat"><div class="stat-number" id="clientCount">0</div><div class="stat-label">clients</div></div>
-        <div class="stat"><div class="stat-number" id="weeklyRevenue">$0</div><div class="stat-label">this week</div></div>
-        <div class="stat"><div class="stat-number" id="progressPct">0%</div><div class="stat-label">of goal</div></div>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
-    <div id="clientList"></div>
-    <button class="add-btn" onclick="addClient()">+ Add Client</button>
+    <div class="check-item" id="ci_mb"><input type="checkbox" id="cb_mb"><label for="cb_mb">Morning breathwork complete</label></div>
 </div>
 
 <div class="card">
-    <h2>🌿 EternaFlow</h2>
-    <div class="task"><input type="checkbox" id="ec1"><input type="text" id="et1" placeholder="Wellness task..."></div>
-    <div class="task"><input type="checkbox" id="ec2"><input type="text" id="et2" placeholder="Wellness task..."></div>
-    <div class="task"><input type="checkbox" id="ec3"><input type="text" id="et3" placeholder="Wellness task..."></div>
+    <h2>🌅 Morning Flow</h2>
+    <div class="check-item" id="ci_yoga"><input type="checkbox" id="cb_yoga"><label for="cb_yoga">🧘‍♀️ Yoga flow</label></div>
+    <div class="check-item" id="ci_walk"><input type="checkbox" id="cb_walk"><label for="cb_walk">🌅 Sunrise walk</label></div>
+    <div class="check-item" id="ci_shower"><input type="checkbox" id="cb_shower"><label for="cb_shower">🚿 Shower + get ready</label></div>
+    <div class="check-item" id="ci_fuel"><input type="checkbox" id="cb_fuel"><label for="cb_fuel">🍳 Fuel up</label></div>
 </div>
 
+<!-- MORNING PAGES -->
+<div class="section-label">✍️ Morning Pages</div>
+<div class="card">
+    <h2>✍️ Future Pace Your Day</h2>
+    <p style="font-size:0.85em;opacity:0.7;margin-bottom:4px;">What does a perfect today look like? Write it as if it already happened.</p>
+    <textarea id="futurePace" placeholder="Today was amazing because..."></textarea>
+    <div class="check-item" style="margin-top:8px" id="ci_fp"><input type="checkbox" id="cb_fp"><label for="cb_fp">Morning pages complete</label></div>
+</div>
+
+<!-- ETERNAFLOW -->
+<div class="section-label">💪 EternaFlow</div>
 <div class="card">
     <h2>💪 Today's Workout</h2>
     <div class="workout-today">
@@ -145,22 +152,99 @@
 <div class="card">
     <h2>💧 Water Tracker</h2>
     <div class="water-drops" id="waterDrops"></div>
-    <div class="water-label" id="waterLabel">Tap a drop to track!</div>
+    <div class="water-label" id="waterLabel"></div>
 </div>
 
+<!-- THIS WEEK -->
+<div class="section-label">🇨🇦 This Week's Priorities</div>
+<div class="card">
+    <h2>🍁 CRA Tax Filing</h2>
+    <div class="check-item" id="ci_t1"><input type="checkbox" id="cb_t1"><label for="cb_t1">Gather T4s and all income slips</label></div>
+    <div class="check-item" id="ci_t2"><input type="checkbox" id="cb_t2"><label for="cb_t2">Collect receipts and expenses</label></div>
+    <div class="check-item" id="ci_t3"><input type="checkbox" id="cb_t3"><label for="cb_t3">Book accountant appointment</label></div>
+    <div class="check-item" id="ci_t4"><input type="checkbox" id="cb_t4"><label for="cb_t4">File outstanding returns</label></div>
+    <div class="check-item" id="ci_t5"><input type="checkbox" id="cb_t5"><label for="cb_t5">Set up payment plan if needed</label></div>
+    <div class="check-item" id="ci_t6"><input type="checkbox" id="cb_t6"><label for="cb_t6">Confirm all years filed ✅</label></div>
+</div>
+
+<div class="card">
+    <h2>💍 Consensual Divorce</h2>
+    <div class="check-item" id="ci_d1"><input type="checkbox" id="cb_d1"><label for="cb_d1">Research online divorce process</label></div>
+    <div class="check-item" id="ci_d2"><input type="checkbox" id="cb_d2"><label for="cb_d2">Gather required documents</label></div>
+    <div class="check-item" id="ci_d3"><input type="checkbox" id="cb_d3"><label for="cb_d3">Complete and submit forms</label></div>
+    <div class="check-item" id="ci_d4"><input type="checkbox" id="cb_d4"><label for="cb_d4">Confirm filing + next steps</label></div>
+</div>
+
+<!-- GROW PRO -->
+<div class="section-label">🚀 Grow Pro</div>
+<div class="card">
+    <h2>🚀 Daily Client Actions</h2>
+    <div class="check-item" id="ci_g1"><input type="checkbox" id="cb_g1"><label for="cb_g1">Check HighLevel for new leads</label></div>
+    <div class="check-item" id="ci_g2"><input type="checkbox" id="cb_g2"><label for="cb_g2">Send WhatsApp outreach (5 contacts)</label></div>
+    <div class="check-item" id="ci_g3"><input type="checkbox" id="cb_g3"><label for="cb_g3">Follow up with existing leads</label></div>
+    <div class="check-item" id="ci_g4"><input type="checkbox" id="cb_g4"><label for="cb_g4">Write or publish SEO blog post</label></div>
+    <div class="check-item" id="ci_g5"><input type="checkbox" id="cb_g5"><label for="cb_g5">Onboarding task for new client</label></div>
+</div>
+
+<div class="card">
+    <h2>💰 Revenue Tracker</h2>
+    <div class="revenue-amount">$22,000</div>
+    <div class="revenue-label">weekly goal</div>
+    <div class="stats-row">
+        <div class="stat"><div class="stat-number" id="clientCount">0</div><div class="stat-label">clients</div></div>
+        <div class="stat"><div class="stat-number" id="weeklyRevenue">$0</div><div class="stat-label">this week</div></div>
+        <div class="stat"><div class="stat-number" id="progressPct">0%</div><div class="stat-label">of goal</div></div>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+    <div id="clientList"></div>
+    <button class="add-btn" onclick="addClient()">+ Add Client</button>
+</div>
+
+<!-- FOCUS -->
+<div class="section-label">🎯 Focus</div>
+<div class="card">
+    <h2>🎯 Top 3 of the Day</h2>
+    <div class="check-item"><input type="checkbox" id="fc1"><input type="text" id="ft1" placeholder="Most important thing today..."></div>
+    <div class="check-item"><input type="checkbox" id="fc2"><input type="text" id="ft2" placeholder="Second priority..."></div>
+    <div class="check-item"><input type="checkbox" id="fc3"><input type="text" id="ft3" placeholder="Third priority..."></div>
+</div>
+
+<!-- SPANISH -->
+<div class="section-label">🇲🇽 Spanish</div>
 <div class="card">
     <h2>🇲🇽 Spanish Word of the Day</h2>
     <div id="spanishContent"></div>
+    <div class="check-item" style="margin-top:8px" id="ci_sp"><input type="checkbox" id="cb_sp"><label for="cb_sp">Spanish lesson complete</label></div>
+</div>
+
+<!-- EVENING -->
+<div class="section-label">🌇 Evening</div>
+<div class="card">
+    <h2>🌇 Sunset + Wind Down</h2>
+    <div class="check-item" id="ci_ss"><input type="checkbox" id="cb_ss"><label for="cb_ss">🌇 Sunset walk</label></div>
 </div>
 
 <div class="card">
-    <h2>🍁 CRA Tax Catch-Up</h2>
-    <div class="cra-item" id="cra1"><input type="checkbox" id="crac1"><label for="crac1">Gather T4s and income slips</label></div>
-    <div class="cra-item" id="cra2"><input type="checkbox" id="crac2"><label for="crac2">Collect all receipts and expenses</label></div>
-    <div class="cra-item" id="cra3"><input type="checkbox" id="crac3"><label for="crac3">Book accountant appointment</label></div>
-    <div class="cra-item" id="cra4"><input type="checkbox" id="crac4"><label for="crac4">File outstanding returns</label></div>
-    <div class="cra-item" id="cra5"><input type="checkbox" id="crac5"><label for="crac5">Set up payment plan if needed</label></div>
-    <div class="cra-item" id="cra6"><input type="checkbox" id="crac6"><label for="crac6">Confirm all years are filed</label></div>
+    <h2>🌙 Evening Breathwork — 10 mins</h2>
+    <div class="breath-container">
+        <div class="breath-phase" id="eBreathPhase">Ready to begin</div>
+        <div class="breath-circle" id="eBreathCircle">
+            <div class="breath-count" id="eBreathCount">▶</div>
+            <div class="breath-text" id="eBreathText"></div>
+        </div>
+        <div class="breath-progress" id="eBreathProgress">Lung recovery + parasympathetic reset</div>
+        <button class="breath-btn" id="eBreathBtn" onclick="startEveningBreath()">Start Evening Breath</button>
+    </div>
+    <div class="check-item" id="ci_eb"><input type="checkbox" id="cb_eb"><label for="cb_eb">Evening breathwork complete</label></div>
+</div>
+
+<div class="card">
+    <h2>📖 Rewrite Your Day</h2>
+    <p style="font-size:0.85em;opacity:0.7;margin-bottom:4px;">What went well today? What are you proud of?</p>
+    <textarea id="rewriteDay" placeholder="Today I am proud that..."></textarea>
+    <p style="font-size:0.85em;opacity:0.7;margin:8px 0 4px;">Tomorrow's intention:</p>
+    <textarea id="tomorrowIntent" placeholder="Tomorrow I will focus on..." style="min-height:60px;"></textarea>
+    <div class="check-item" style="margin-top:8px" id="ci_rw"><input type="checkbox" id="cb_rw"><label for="cb_rw">Evening pages complete</label></div>
 </div>
 
 <script>
@@ -173,6 +257,7 @@ window.onload = function() {
     const quotes = ["She believed she could, so she did. 🐚","The beach is calling and I must go. ☀️","Build the life you want, one wave at a time. 🌊","Success is doing ordinary things extraordinarily well. 🚀","Your vibe attracts your tribe. 🌺","Dream big, work hard, stay humble. 💫","Every expert was once a beginner. 🌱","Progress over perfection, always. 🎯","The sun will shine on your efforts. ☀️","Small steps every day lead to big results. 🐚"];
     document.getElementById('quote').textContent = quotes[new Date().getDay() % quotes.length];
 
+    // SPANISH
     const words = [
         {word:"Negocio",meaning:"Business",present:"Tengo un negocio en Progreso.",past:"Empecé mi negocio el año pasado.",future:"Mi negocio crecerá mucho."},
         {word:"Cliente",meaning:"Client",present:"Busco un nuevo cliente hoy.",past:"Conseguí un cliente la semana pasada.",future:"Tendré más clientes este mes."},
@@ -185,52 +270,68 @@ window.onload = function() {
     const w = words[new Date().getDay() % words.length];
     document.getElementById('spanishContent').innerHTML = `<div class="spanish-word">${w.word}</div><div class="spanish-meaning">${w.meaning}</div><div class="tense"><div class="tense-label">🕐 Present</div><div class="tense-text">${w.present}</div></div><div class="tense"><div class="tense-label">📖 Past</div><div class="tense-text">${w.past}</div></div><div class="tense"><div class="tense-label">🔮 Future</div><div class="tense-text">${w.future}</div></div>`;
 
-    // DR. STACY SIMS WORKOUTS
-    const workouts = {
-        0: {
-            type: "🧘‍♀️ Yin Yoga + Full Rest",
-            subtitle: "Sunday — restore, reset, recover",
-            sims: "Dr. Sims: Rest is where adaptation happens. Cortisol drops, muscle rebuilds.",
-            exercises: ["10 min gentle sun salutations","Yin hold: Butterfly pose — 3 mins","Yin hold: Dragon pose each side — 3 mins","Yin hold: Sphinx pose — 3 mins","5 min savasana + breathwork"]
-        },
-        1: {
-            type: "💪 Lower Body Strength",
-            subtitle: "Monday — heavy bands + kettlebell",
-            sims: "Dr. Sims: Heavy resistance training is non-negotiable for perimenopausal women. Lift HEAVY.",
-            exercises: ["Banded glute bridges — 4 x 8 heavy","KB sumo deadlift — 4 x 6 heavy","Banded lateral walks — 3 x 12 each","Single leg KB Romanian deadlift — 3 x 8","Banded clamshells — 3 x 15 each","Cool down: hip flexor stretch 2 mins each"]
-        },
-        2: {
-            type: "⚡ Sprint Intervals + Cardio",
-            subtitle: "Tuesday — short, intense, powerful",
-            sims: "Dr. Sims: Skip long slow cardio. Short intense sprints preserve muscle and torch fat.",
-            exercises: ["5 min warm up walk/jog","8 x 20 sec all-out sprints (beach or home)","Rest 40 sec between each sprint","Banded high knees — 3 x 30 sec","Jump squats (or banded squats) — 3 x 10","Cool down walk 5 mins + stretch"]
-        },
-        3: {
-            type: "💪 Upper Body Strength",
-            subtitle: "Wednesday — heavy bands + dumbbells",
-            sims: "Dr. Sims: Upper body strength protects bone density in spine and wrists. Go heavy!",
-            exercises: ["Banded pull aparts — 3 x 15","DB overhead press — 4 x 8 heavy","Banded bent over rows — 4 x 10","DB chest press (floor) — 3 x 8","Banded tricep pushdowns — 3 x 12","KB halo — 3 x 8 each direction"]
-        },
-        4: {
-            type: "⚡ HIIT Circuit",
-            subtitle: "Thursday — full body conditioning",
-            sims: "Dr. Sims: HIIT signals your body to use fat as fuel and keeps metabolism fired up.",
-            exercises: ["Circuit x 4 rounds — 40 sec on, 20 sec rest:","▸ Banded squat to press","▸ KB swing","▸ Banded lateral shuffle","▸ Push ups (full or modified)","▸ Banded glute kickbacks","Rest 90 sec between rounds"]
-        },
-        5: {
-            type: "💪 Full Body Strength",
-            subtitle: "Friday — compound movements, go heavy",
-            sims: "Dr. Sims: Compound lifts trigger the most hormonal response. This is your power day!",
-            exercises: ["KB goblet squat — 4 x 8 heavy","Banded deadlift — 4 x 6 heavy","DB alternating lunge — 3 x 10 each","Banded face pulls — 3 x 15","KB single arm row — 3 x 8 each","Plank hold — 3 x 45 sec"]
-        },
-        6: {
-            type: "🧘‍♀️ Yoga + Mobility",
-            subtitle: "Saturday — flow and restore",
-            sims: "Dr. Sims: Active recovery keeps cortisol balanced and joints healthy. Move gently.",
-            exercises: ["15 min gentle vinyasa flow","Hip circle mobility — 2 mins each side","Thoracic spine rolls — 2 mins","Hamstring band stretch — 2 mins each","Shoulder cross body stretch — 2 mins each","5 min meditation or breathwork"]
+    // BREATHWORK
+    function runBreath(phases, circleId, countId, textId, phaseId, progressId, btnId, totalMins) {
+        let phaseIndex = 0, counter = 0, elapsed = 0;
+        const totalSecs = totalMins * 60;
+        const circle = document.getElementById(circleId);
+        const btn = document.getElementById(btnId);
+        btn.textContent = 'Stop';
+        btn.classList.add('active');
+
+        function tick() {
+            if(elapsed >= totalSecs) {
+                document.getElementById(phaseId).textContent = '✅ Complete! Well done!!';
+                document.getElementById(countId).textContent = '🙏';
+                document.getElementById(textId).textContent = '';
+                circle.className = 'breath-circle';
+                btn.textContent = 'Done ✅';
+                btn.classList.remove('active');
+                return;
+            }
+            const phase = phases[phaseIndex % phases.length];
+            document.getElementById(phaseId).textContent = phase.label;
+            document.getElementById(progressId).textContent = Math.floor(elapsed/60) + ':' + String(elapsed%60).padStart(2,'0') + ' / ' + totalMins + ':00';
+            circle.className = 'breath-circle ' + phase.style;
+            document.getElementById(countId).textContent = phase.duration - counter;
+            document.getElementById(textId).textContent = phase.label;
+            counter++;
+            elapsed++;
+            if(counter >= phase.duration) { counter = 0; phaseIndex++; }
+            setTimeout(tick, 1000);
         }
+        tick();
+    }
+
+    window.startMorningBreath = function() {
+        const phases = [
+            {label:'Inhale 🌬️', duration:4, style:'expand'},
+            {label:'Hold 🔒', duration:4, style:'hold'},
+            {label:'Exhale 💨', duration:6, style:'shrink'},
+            {label:'Hold empty 🌑', duration:2, style:'shrink'},
+        ];
+        runBreath(phases, 'mBreathCircle','mBreathCount','mBreathText','mBreathPhase','mBreathProgress','mBreathBtn', 8);
     };
 
+    window.startEveningBreath = function() {
+        const phases = [
+            {label:'Inhale 🌬️', duration:4, style:'expand'},
+            {label:'Hold 🔒', duration:7, style:'hold'},
+            {label:'Exhale slowly 💨', duration:8, style:'shrink'},
+        ];
+        runBreath(phases, 'eBreathCircle','eBreathCount','eBreathText','eBreathPhase','eBreathProgress','eBreathBtn', 10);
+    };
+
+    // WORKOUT
+    const workouts = {
+        0:{type:"🧘‍♀️ Yin Yoga + Full Rest",subtitle:"Sunday — restore, reset, recover",sims:"Dr. Sims: Rest is where adaptation happens. Cortisol drops, muscle rebuilds.",exercises:["10 min gentle sun salutations","Yin hold: Butterfly pose — 3 mins","Yin hold: Dragon pose each side — 3 mins","Yin hold: Sphinx pose — 3 mins","5 min savasana + breathwork"]},
+        1:{type:"💪 Lower Body Strength",subtitle:"Monday — heavy bands + kettlebell",sims:"Dr. Sims: Heavy resistance training is non-negotiable for perimenopausal women. Lift HEAVY.",exercises:["Banded glute bridges — 4 x 8 heavy","KB sumo deadlift — 4 x 6 heavy","Banded lateral walks — 3 x 12 each","Single leg KB Romanian deadlift — 3 x 8","Banded clamshells — 3 x 15 each","Cool down: hip flexor stretch 2 mins each"]},
+        2:{type:"⚡ Sprint Intervals",subtitle:"Tuesday — short, intense, powerful",sims:"Dr. Sims: Skip long slow cardio. Short intense sprints preserve muscle and torch fat.",exercises:["5 min warm up walk/jog","8 x 20 sec all-out sprints","Rest 40 sec between each sprint","Banded high knees — 3 x 30 sec","Jump squats — 3 x 10","Cool down walk 5 mins + stretch"]},
+        3:{type:"💪 Upper Body Strength",subtitle:"Wednesday — heavy bands + dumbbells",sims:"Dr. Sims: Upper body strength protects bone density in spine and wrists. Go heavy!",exercises:["Banded pull aparts — 3 x 15","DB overhead press — 4 x 8 heavy","Banded bent over rows — 4 x 10","DB chest press floor — 3 x 8","Banded tricep pushdowns — 3 x 12","KB halo — 3 x 8 each direction"]},
+        4:{type:"⚡ HIIT Circuit",subtitle:"Thursday — full body conditioning",sims:"Dr. Sims: HIIT signals your body to use fat as fuel and keeps metabolism fired up.",exercises:["4 rounds — 40 sec on, 20 sec rest:","Banded squat to press","KB swing","Banded lateral shuffle","Push ups full or modified","Banded glute kickbacks","Rest 90 sec between rounds"]},
+        5:{type:"💪 Full Body Strength",subtitle:"Friday — compound movements, go heavy",sims:"Dr. Sims: Compound lifts trigger the most hormonal response. This is your power day!",exercises:["KB goblet squat — 4 x 8 heavy","Banded deadlift — 4 x 6 heavy","DB alternating lunge — 3 x 10 each","Banded face pulls — 3 x 15","KB single arm row — 3 x 8 each","Plank hold — 3 x 45 sec"]},
+        6:{type:"🧘‍♀️ Yoga + Mobility",subtitle:"Saturday — flow and restore",sims:"Dr. Sims: Active recovery keeps cortisol balanced and joints healthy. Move gently.",exercises:["15 min gentle vinyasa flow","Hip circle mobility — 2 mins each side","Thoracic spine rolls — 2 mins","Hamstring band stretch — 2 mins each","Shoulder cross body stretch — 2 mins each","5 min meditation or breathwork"]}
+    };
     const dayNames = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
     const dayIcons = ['🧘‍♀️','💪','⚡','💪','⚡','💪','🧘‍♀️'];
     const today = new Date().getDay();
@@ -240,93 +341,78 @@ window.onload = function() {
         document.getElementById('workoutType').textContent = wk.type;
         document.getElementById('workoutSubtitle').textContent = wk.subtitle;
         document.getElementById('workoutSims').textContent = wk.sims;
-        document.getElementById('exerciseList').innerHTML = wk.exercises.map(e => `<li>${e}</li>`).join('');
-        const done = localStorage.getItem('workout_'+today) === 'true';
+        document.getElementById('exerciseList').innerHTML = wk.exercises.map(e=>`<li>${e}</li>`).join('');
+        const done = localStorage.getItem('workout_'+today)==='true';
         const btn = document.getElementById('workoutBtn');
         btn.textContent = done ? '✅ Completed!!' : 'Mark Complete ✓';
-        btn.className = 'workout-done-btn' + (done ? ' completed' : '');
-        document.getElementById('weekRow').innerHTML = dayNames.map((d,i) => {
-            const isDone = localStorage.getItem('workout_'+i) === 'true';
-            return `<div class="day-pill ${i===today?'today':''} ${isDone?'completed':''}"><div class="day-name">${d}</div><div class="day-icon">${dayIcons[i]}</div></div>`;
+        btn.className = 'workout-done-btn'+(done?' completed':'');
+        document.getElementById('weekRow').innerHTML = dayNames.map((d,i)=>{
+            const isDone = localStorage.getItem('workout_'+i)==='true';
+            return `<div class="day-pill ${i===today?'today':''} ${isDone?'completed':''}"><div class="day-name">${d}</div><div style="font-size:1.1em">${dayIcons[i]}</div></div>`;
         }).join('');
     }
     renderWorkout();
+    window.toggleWorkout = function() { localStorage.setItem('workout_'+today, localStorage.getItem('workout_'+today)!=='true'); renderWorkout(); };
 
-    window.toggleWorkout = function() {
-        localStorage.setItem('workout_'+today, localStorage.getItem('workout_'+today) !== 'true');
-        renderWorkout();
-    };
-
+    // WATER
     function renderWater() {
-        const count = parseInt(localStorage.getItem('water') || '0');
-        document.getElementById('waterDrops').innerHTML = Array.from({length:8},(_,i) =>
-            `<span class="drop ${i<count?'filled':''}" onclick="setWater(${i+1})">💧</span>`
-        ).join('');
-        document.getElementById('waterLabel').textContent = count + ' of 8 glasses today';
+        const count = parseInt(localStorage.getItem('water')||'0');
+        document.getElementById('waterDrops').innerHTML = Array.from({length:8},(_,i)=>`<span class="drop ${i<count?'filled':''}" onclick="setWater(${i+1})">💧</span>`).join('');
+        document.getElementById('waterLabel').textContent = count+' of 8 glasses today';
     }
-    window.setWater = function(n) {
-        localStorage.setItem('water', parseInt(localStorage.getItem('water')||'0') === n ? n-1 : n);
-        renderWater();
-    };
+    window.setWater = function(n) { localStorage.setItem('water', parseInt(localStorage.getItem('water')||'0')===n?n-1:n); renderWater(); };
     renderWater();
 
-    function saveAll() {
-        ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'].forEach(id => {
-            const el = document.getElementById(id); if(el) localStorage.setItem(id, el.value);
-        });
-        ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'].forEach(id => {
-            const el = document.getElementById(id); if(el) localStorage.setItem(id, el.checked);
-        });
-        updateStyles();
-    }
-    function updateStyles() {
-        [['fc1','ft1'],['fc2','ft2'],['fc3','ft3'],['gc1','gt1'],['gc2','gt2'],['gc3','gt3'],['gc4','gt4'],['gc5','gt5'],['ec1','et1'],['ec2','et2'],['ec3','et3']].forEach(([c,t]) => {
-            const cb = document.getElementById(c); const tx = document.getElementById(t);
-            if(cb && tx) tx.classList.toggle('done', cb.checked);
-        });
-    }
-    ['whereWasI','ft1','ft2','ft3','gt1','gt2','gt3','gt4','gt5','et1','et2','et3'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) { if(localStorage.getItem(id)) el.value = localStorage.getItem(id); el.addEventListener('input', saveAll); }
+    // CHECKBOXES
+    const checkIds = ['mb','yoga','walk','shower','fuel','fp','t1','t2','t3','t4','t5','t6','d1','d2','d3','d4','g1','g2','g3','g4','g5','sp','ss','eb','rw'];
+    checkIds.forEach(id => {
+        const el = document.getElementById('cb_'+id);
+        const ci = document.getElementById('ci_'+id);
+        if(el) {
+            el.checked = localStorage.getItem('cb_'+id)==='true';
+            if(ci) ci.classList.toggle('done', el.checked);
+            el.addEventListener('change', function() {
+                localStorage.setItem('cb_'+id, this.checked);
+                if(ci) ci.classList.toggle('done', this.checked);
+            });
+        }
     });
-    ['fc1','fc2','fc3','gc1','gc2','gc3','gc4','gc5','ec1','ec2','ec3'].forEach(id => {
-        const el = document.getElementById(id);
-        if(el) { el.checked = localStorage.getItem(id) === 'true'; el.addEventListener('change', saveAll); }
-    });
-    updateStyles();
 
-    let clients = JSON.parse(localStorage.getItem('clients') || '[]');
+    // FOCUS TASKS
+    [[' fc1','ft1'],['fc2','ft2'],['fc3','ft3']].forEach(([c,t])=>{
+        const cb = document.getElementById(c); const tx = document.getElementById(t);
+        if(cb && tx) {
+            cb.checked = localStorage.getItem(c)==='true';
+            if(localStorage.getItem(t)) tx.value = localStorage.getItem(t);
+            tx.classList.toggle('done', cb.checked);
+            cb.addEventListener('change', function() { localStorage.setItem(c, this.checked); tx.classList.toggle('done', this.checked); });
+            tx.addEventListener('input', function() { localStorage.setItem(t, this.value); });
+        }
+    });
+
+    // TEXTAREAS
+    ['futurePace','rewriteDay','tomorrowIntent'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) { if(localStorage.getItem(id)) el.value = localStorage.getItem(id); el.addEventListener('input', function() { localStorage.setItem(id, this.value); }); }
+    });
+
+    // CLIENTS
+    let clients = JSON.parse(localStorage.getItem('clients')||'[]');
     function updateRevenue() {
-        const total = clients.reduce((s,c) => s+(parseFloat(c.revenue)||0), 0);
-        const pct = Math.min(100, Math.round((total/22000)*100));
+        const total = clients.reduce((s,c)=>s+(parseFloat(c.revenue)||0),0);
+        const pct = Math.min(100,Math.round((total/22000)*100));
         document.getElementById('clientCount').textContent = clients.length;
         document.getElementById('weeklyRevenue').textContent = '$'+total.toLocaleString();
         document.getElementById('progressPct').textContent = pct+'%';
         document.getElementById('progressFill').style.width = pct+'%';
     }
     function renderClients() {
-        document.getElementById('clientList').innerHTML = clients.map((c,i) => `
-            <div class="client-row">
-                <input class="client-input" placeholder="Client name..." value="${c.name||''}" onchange="window.updateClient(${i},'name',this.value)">
-                <input class="revenue-input" type="number" placeholder="$/wk" value="${c.revenue||''}" onchange="window.updateClient(${i},'revenue',this.value)">
-            </div>`).join('');
+        document.getElementById('clientList').innerHTML = clients.map((c,i)=>`<div class="client-row"><input class="client-input" placeholder="Client name..." value="${c.name||''}" onchange="window.updateClient(${i},'name',this.value)"><input class="revenue-input" type="number" placeholder="$/wk" value="${c.revenue||''}" onchange="window.updateClient(${i},'revenue',this.value)"></div>`).join('');
         updateRevenue();
     }
     window.updateClient = function(i,field,val) { clients[i][field]=val; localStorage.setItem('clients',JSON.stringify(clients)); updateRevenue(); };
     window.addClient = function() { clients.push({name:'',revenue:0}); localStorage.setItem('clients',JSON.stringify(clients)); renderClients(); };
     renderClients();
-
-    for(let i=1;i<=6;i++) {
-        const el = document.getElementById('crac'+i);
-        if(el) {
-            el.checked = localStorage.getItem('crac'+i) === 'true';
-            document.getElementById('cra'+i).classList.toggle('done', el.checked);
-            el.addEventListener('change', function() {
-                localStorage.setItem('crac'+i, this.checked);
-                document.getElementById('cra'+i).classList.toggle('done', this.checked);
-            });
-        }
-    }
 
 };
 </script>
